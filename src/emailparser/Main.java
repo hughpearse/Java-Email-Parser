@@ -33,57 +33,64 @@ public class Main {
     
     public static void main(String[] args){
         int success=0;
-        //files
-        if(args[0].contains("-f") && args.length == 3){
-            success++;
-            //body
-            if(args[2].contains("-b")){
-                success++;
-                FileBodyParser fb = new FileBodyParser(args[1]);
-                try {
-                    fb.scan();
-                } catch (MessagingException ex) {
-                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            //headers
-            if(args[2].contains("-h")){
-                success++;
-                FileHeaderParser fh = new FileHeaderParser(args[1]);
-                try {
-                    fh.scan();
-                } catch (MessagingException ex) {
-                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
 
-        //pipes
-        if(args[0].contains("-p") && args.length == 2){
-            success++;
-            //body
-            if(args[1].contains("-b")){
-                success++;
-                PipeBodyParser pb = new PipeBodyParser();
-                try {
-                    pb.scan();
-                } catch (MessagingException ex) {
-                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            //headers
-            if(args[1].contains("-h")){
-                success++;
-                PipeHeaderParser ph = new PipeHeaderParser();
-                try {
-                    ph.scan();
-                } catch (MessagingException ex) {
-                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-
-        if(success<2)
+        if(args.length == 0){
             help();
+        }
+        else{
+            //files
+            if(args[0].contains("-f") && args.length == 3){
+                success++;
+                //body
+                if(args[2].contains("-b")){
+                    success++;
+                    FileBodyParser fb = new FileBodyParser(args[1]);
+                    try {
+                        fb.scan();
+                    } catch (MessagingException ex) {
+                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                //headers
+                if(args[2].contains("-h")){
+                    success++;
+                    FileHeaderParser fh = new FileHeaderParser(args[1]);
+                    try {
+                        fh.scan();
+                    } catch (MessagingException ex) {
+                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                if(success<2)
+                    help();
+            }
+
+            //pipes
+            if(args[0].contains("-p") && args.length == 2){
+                success++;
+                //body
+                if(args[1].contains("-b")){
+                    success++;
+                    PipeBodyParser pb = new PipeBodyParser();
+                    try {
+                        pb.scan();
+                    } catch (MessagingException ex) {
+                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                //headers
+                if(args[1].contains("-h")){
+                    success++;
+                    PipeHeaderParser ph = new PipeHeaderParser();
+                    try {
+                        ph.scan();
+                    } catch (MessagingException ex) {
+                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                if(success<2)
+                    help();
+            }
+        }
     }
 }
